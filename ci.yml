@@ -1,0 +1,26 @@
+# Starter CI so the required check named "ci" exists from the first push.
+# The agent extends this in M0 (e2e, supabase db reset, migration checks) and keeps
+# a final job with id "ci" that depends on every other job. Branch protection requires "ci".
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Checks
+        run: |
+          if [ -f package.json ]; then
+            npm ci
+            npm run typecheck --if-present
+            npm run lint --if-present
+            npm test --if-present
+          else
+            echo "Kit only, no app yet."
+          fi

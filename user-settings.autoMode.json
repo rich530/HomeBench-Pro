@@ -1,0 +1,21 @@
+{
+  "autoMode": {
+    "environment": [
+      "$defaults",
+      "Organization: Committed Contracting / HomeBench (Rich Fischer). Primary use: software development of the HomeBench Pro web app (Next.js, TypeScript, Supabase).",
+      "Source control: github.com/rich530 and every repo under it. Pull requests and auto-merge (gh pr merge --auto --squash) into main of rich530/homebench are routine; main deploys only to staging.",
+      "Cloud provider(s): Supabase (hosted Postgres) and Vercel (hosting). Local development uses the Supabase CLI running in Docker on this machine (localhost ports 54321 to 54324).",
+      "Trusted internal domains: localhost, 127.0.0.1, registry.npmjs.org, *.vercel.app preview URLs for rich530/homebench branches, api.github.com, github.com/rich530.",
+      "Key internal services: GitHub Actions for rich530/homebench (CI, staging-migrate, prod-migrate workflows), Vercel project homebench, Supabase local stack.",
+      "Sensitive remote targets: the Supabase project homebench-prod, the Supabase project homebench-staging, the Vercel production deployment, and the git branch named production. The agent never connects to either hosted Supabase project; CI does.",
+      "Sensitive data locations & audiences: customer names, phones, emails, and addresses in any hosted database; files under data/private in the repo (Rich only, never committed, never sent anywhere).",
+      "Additional context: multi-tenant contractor software; production credentials never exist on this machine; test and sandbox credentials for Stripe, Twilio, Resend, Intuit, Hover, MagicPlan may be used only against their test or sandbox endpoints."
+    ],
+    "allow": [
+      "$defaults",
+      "Running the local Supabase stack (supabase start, stop, status, db reset without --linked or --db-url, migration new, gen types --local) is allowed: it only touches Docker containers on this machine.",
+      "Installing npm packages from registry.npmjs.org into the repo is allowed.",
+      "Creating pull requests and enabling auto-merge with gh pr merge --auto --squash on rich530/homebench is allowed: branch protection requires green CI and main only deploys to staging."
+    ]
+  }
+}
